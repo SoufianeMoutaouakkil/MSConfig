@@ -92,8 +92,11 @@ class SMConfigTest extends TestCase
 
     public function testSetPhpFileConfig()
     {
+        // test the use of a php file. it will be added to the current config in the object
         $this->config->setConfigByFiles(["php" => $this->configDir . "Config.php"]);
 
+        // make sure that the test testSetJsonFileConfig has effect on the global object of SMConfig
+        $this->assertArrayHasKey("json", $_ENV);
         $this->assertArrayHasKey("php", $_ENV);
         $this->assertArrayHasKey("database", $_ENV["php"]);
         $this->assertArrayHasKey("mysql", $_ENV["php"]["database"]);
